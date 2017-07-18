@@ -2,13 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.corpus import stopwords
-from nltk.corpus import words
+from nltk.corpus import brown
 from itertools import chain
 
 main_url="https://weworkremotely.com"
 stopwords = set(stopwords.words('english'))
-words = set(words.words())
+words = set(brown.words())
 stopwords = stopwords.union(words)
+stopwords.add(" ")
 punctuation = "!\"$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 links = []
 i=0
@@ -48,7 +49,6 @@ c = Counter((x.rstrip(punctuation).lower() for y in text for x in y.split()))
 
 # print values and counts descending by most common
 for value, count in c.most_common():
-    
     # make sure its not in stopwords and occurs at least 5 times
-    if(value not in stopwords and count > 5):
+    if(value not in stopwords and count > 20):
         print(value, count)
