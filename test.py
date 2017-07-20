@@ -6,10 +6,8 @@ from nltk.corpus import brown
 from itertools import chain
 
 main_url="https://weworkremotely.com"
-stopwords = set(stopwords.words('english'))
-words = set(brown.words())
-stopwords = stopwords.union(words)
-stopwords.add(" ")
+words = set(stopwords.words('english'))
+words |= set(brown.words())
 punctuation = "!\"$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 links = []
 i=0
@@ -45,10 +43,10 @@ c = Counter((x.rstrip(punctuation).lower() for y in text for x in y.split()))
 # print (c.most_common()) # prints most common words staring at most common.
 
 # words appearing more than 5 times
-# print ([x for x in c if c.get(x) > 0 and x not in stopwords])
+# print ([x for x in c if c.get(x) > 0 and x not in words])
 
 # print values and counts descending by most common
 for value, count in c.most_common():
-    # make sure its not in stopwords and occurs at least 5 times
-    if(value not in stopwords and count > 20):
-        print(value, count)
+    # make sure its not in words and occurs at least 5 times
+    #if(value not in words and count > 20):
+    print(value, count)
